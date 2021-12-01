@@ -1,0 +1,4 @@
+ip nat inside source static tcp 10.10.20.10 22 interface GigabitEthernet0 2222
+ip nat inside source list 10 interface GigabitEthernet0 overload
+ip nat inside source static tcp 10.10.20.10 8443 interface GigabitEthernet0 8443
+ip nat inside source static tcp 10.10.20.10 8000 interface GigabitEthernet0 8000

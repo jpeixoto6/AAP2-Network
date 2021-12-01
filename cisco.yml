@@ -1,0 +1,68 @@
+---
+- name: gather information from routers
+  hosts: routers
+  gather_facts: no
+
+  tasks:
+    - name: gather router facts
+      ios_facts:
+
+    - name: display version
+      debug:
+        msg: "The IOS version is: {{ ansible_net_version }}"
+
+    - name: display serial number
+      debug:
+        msg: "The serial number is:{{ ansible_net_serialnum }}"
+
+    - name: display interface address
+      debug:
+        msg: "The interface ip address is: {{ ansible_net_interfaces.Vlan1.ipv4[0].address}} "
+      when: hostvars[inventory_hostname].ansible_net_model == "IR829GW-LTE-GA-ZK9"
+
+    - name: display interface address
+      debug:
+        msg: "The interface ip address is: {{ ansible_net_interfaces.GigabitEthernet0.ipv4[0].address }}"
+      when: ansible_net_model == "IR809G-LTE-GA-K9"
+
+
+    - name: Write facts to disk using a template
+      copy:
+        content: |
+          #jinja2: lstrip_blocks: True
+
+          IOS device info:
+            {% for host in groups['routers'] %}
+            Hostname: {{ hostvars[host].ansible_net_hostname }}
+            Version: {{ hostvars[host].ansible_net_version }}
+            Model: {{ hostvars[host].ansible_net_model }}
+            Serial: {{ hostvars[host].ansible_net_serialnum }}
+            {% endfor %}
+
+        dest: inventario/router-facts
+        #      run_once: yes
+
+    - name: Run cli_command on Cisco IOS and display results
+      block:
+        - name: Run cli_command on Cisco IOS
+          ios_command:
+            commands: show ip int br
+          register: result
+
+        - name: Display result to terminal window
+          debug:
+            var: result.stdout_lines
+    
+        - name: Run cli_command on Cisco IOS
+          ios_command:
+            commands: show running-config
+          register: config
+
+        - name: save output to local directory
+          copy:
+           content: "{{ config.stdout | replace('\\n', '\n') }}"           
+           dest: "backup/{{ inventory_hostname }}.ios"
+      
+      when: ansible_net_iostype  == 'IOS'
+
+

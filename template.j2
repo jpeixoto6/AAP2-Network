@@ -1,0 +1,16 @@
+{% for config  in nodes[inventory_hostname].values() %}
+interface {{config.interface.name}}
+  ip address {{config.interface.address}} {{config.interface.mask}}
+  no shutdown
+
+ip dhcp pool GOSPOOL
+   network {{config.dhcp.network}} {{config.dhcp.mask}}
+   default-router {{config.interface.address}}
+   domain-name example.com
+   dns-server {{config.dhcp.dns}}
+   option 42 ip {{config.dhcp.ntp}}
+      remember
+
+
+{% endfor %}
+

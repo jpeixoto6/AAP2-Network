@@ -1,0 +1,39 @@
+---
+- name: configure network devices
+  hosts: rtr1,rtr2
+  gather_facts: false
+  tasks:
+    - name: gather router facts
+      ios_facts:
+        gather_subset: all
+        gather_network_resources: interfaces
+
+    - block:
+      - name: Delete attributes of given interfaces 
+        ios_l3_interfaces:
+          config:
+          - name: GigabitEthernet5
+          state: deleted
+
+      - name: Delete attributes of given interfaces 
+        ios_interfaces:
+          config:
+          - name: GigabitEthernet5
+          state: deleted
+      when: ansible_net_model == "IR829GW-LTE-GA-ZK9"
+
+
+    - block:
+      - name: Delete attributes of given interfaces 
+        ios_l3_interfaces:
+          config:
+          - name: GigabitEthernet2
+          state: deleted
+
+      - name: Delete attributes of given interfaces 
+        ios_interfaces:
+          config:
+          - name: GigabitEthernet2
+          state: deleted
+      when: ansible_net_model == "IR809G-LTE-GA-K9"
+

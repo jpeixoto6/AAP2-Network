@@ -1,0 +1,13 @@
+interfaces:
+  - ios_if: "GigabitEthernet2"
+    desc: "Interface interna IOX"
+    enabled: true
+    ipv4: "10.10.20.1/24"
+    nat:
+      role: inside
+  - ios_if: "GigabitEthernet0"
+    desc: "To the Internet"
+    enabled: true
+    ipv4: "192.168.0.211/24"
+    nat:
+      role: outside

@@ -1,0 +1,25 @@
+---
+  - name: build IOS inventory report
+    hosts: routers
+    connection: network_cli
+    gather_facts:  False
+
+    vars:
+       desired_ios_version: "16.06.01"
+       file_path: inventory_report_ios.html
+
+    tasks:
+
+      - name: gathering IOS facts
+        ios_facts:
+        register: all_facts
+
+      - debug:
+          msg: "{{hostvars['rtr1']['ansible_net_interfaces']['GigabitEthernet0']['ipv4'][0]['address']  }}"
+
+      - name: create HTML report
+        template:
+          src: report-ios.j2
+          dest: "{{ file_path }}"
+        delegate_to: localhost
+        run_once: true

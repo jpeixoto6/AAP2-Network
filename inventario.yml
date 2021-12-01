@@ -1,0 +1,17 @@
+---
+- name: gather information from routers
+  hosts: routers
+  gather_facts: no
+
+  tasks:
+    - name: gather router facts
+      ios_facts:
+
+    - name: Write facts to disk using a template
+      copy:
+        content:  
+          "{{ lookup('template', 'template-inventario.j2') }}"
+        dest: inventario/router-facts.csv
+      run_once: yes
+
+

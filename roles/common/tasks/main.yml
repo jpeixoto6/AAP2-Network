@@ -1,0 +1,17 @@
+---
+# tasks file for common
+- name: DNS Domain
+  ios_config:
+    lines:
+      - "ip domain-name {{ domain_name }}"
+
+- name: Crypto key generate
+  ios_config:
+    lines: 
+      - "crypto key generate rsa modulus 1024"
+
+- name: Enabling ssh v2
+  ios_config:
+    lines: 
+      - "ip ssh version 2"
+

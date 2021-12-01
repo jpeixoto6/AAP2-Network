@@ -1,0 +1,28 @@
+---
+- name: gather information from routers
+  hosts: routers
+  gather_facts: no
+
+  tasks:
+    - name: gather router facts
+      ios_facts:
+
+    - name: display version
+      debug:
+        msg: "The IOS version is: {{ ansible_net_version }}"
+
+    - name: display serial number
+      debug:
+        msg: "The serial number is:{{ ansible_net_serialnum }}"
+
+    - name: display interface address
+      debug:
+        msg: "The interface ip address is: {{ ansible_net_interfaces.Vlan1.ipv4[0].address}} "
+      when: hostvars[inventory_hostname].ansible_net_model == "IR829GW-LTE-GA-ZK9"
+
+    - name: display interface address
+      debug:
+        msg: "The interface ip address is: {{ ansible_net_interfaces.GigabitEthernet0.ipv4[0].address }}"
+      when: ansible_net_model == "IR809G-LTE-GA-K9"
+
+

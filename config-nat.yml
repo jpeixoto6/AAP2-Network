@@ -1,0 +1,14 @@
+---
+- hosts: routers
+  gather_facts: no
+
+  tasks:
+  - import_role:
+      name: common
+  - import_role:
+      name: interfaces
+  - import_role:
+      name: nat
+  - name: save running to startup when modified
+    ios_config:
+      save_when: modified

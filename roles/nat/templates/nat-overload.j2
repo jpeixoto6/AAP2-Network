@@ -1,0 +1,17 @@
+access-list 10 permit any
+{% for interface in interfaces %}
+{% if interface['nat'] is defined %}
+
+   interface {{ interface['ios_if'] }}
+     ip nat {{ interface['nat']['role'] }}
+!
+{% if 'outside' in interface['nat']['role'] %}
+
+   ip nat inside source list 10 interface {{ interface['ios_if'] }} overload
+   ip nat inside source static tcp 10.10.20.10 22 interface {{ interface['ios_if'] }} 2222
+   ip nat inside source static tcp 10.10.20.10 8443 interface {{ interface['ios_if'] }} 8443
+   ip nat inside source static tcp 10.10.20.10 8000 interface {{ interface['ios_if'] }} 8000
+
+{% endif %}
+{% endif %}
+{% endfor %}

@@ -1,0 +1,26 @@
+---
+- name: gather information from routers
+  hosts: routers
+  gather_facts: no
+
+  tasks:
+
+    - name: gather router facts
+      ios_facts:
+
+    - name: Run cli_command on Cisco IOS and display results
+      block:
+
+        - name: Run cli_command on Cisco IOS
+          ios_command:
+            commands: show running-config
+          register: config
+
+        - name: save output to local directory
+          copy:
+           content: "{{ config.stdout | replace('\\n', '\n') }}"           
+           dest: "backup/{{ inventory_hostname }}.ios"
+      
+      when: ansible_net_iostype  == 'IOS'
+
+

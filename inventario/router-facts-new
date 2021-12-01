@@ -1,0 +1,34 @@
+<!-- add services ANSIBLE MANAGED BLOCK -->
+
+IOS device info:
+  Hostname: CSR1kv
+  Version: 15.8(3)M1
+  Model: IR829GW-LTE-GA-ZK9
+  Serial: FGL2012248M
+  Hostname: R1
+  Version: 15.8(3)M1
+  Model: IR809G-LTE-GA-K9
+  Serial: JMX2021X036
+<!-- add services ANSIBLE MANAGED BLOCK -->
+
+IOS device info:
+  Hostname: CSR1kv
+  Version: 15.8(3)M1
+  Model: IR829GW-LTE-GA-ZK9
+  Serial: FGL2012248M
+  Hostname: R1
+  Version: 15.8(3)M1
+  Model: IR809G-LTE-GA-K9
+  Serial: JMX2021X036
+<!-- add services ANSIBLE MANAGED BLOCK -->
+
+IOS device info:
+  Hostname: CSR1kv
+  Version: 15.8(3)M1
+  Model: IR829GW-LTE-GA-ZK9
+  Serial: FGL2012248M
+  Hostname: R1
+  Version: 15.8(3)M1
+  Model: IR809G-LTE-GA-K9
+  Serial: JMX2021X036
+<!-- add services ANSIBLE MANAGED BLOCK -->
