@@ -1,15 +1,29 @@
-[routers]
-rtr1 ansible_host=192.168.0.210 
-rtr2 ansible_host=192.168.0.211
+[routers:vars]
+ansible_user=admin
+ansible_password=Cisco123
+user_pod = mypod
+pod_number = 10
+netconf_port = 830
 
-#[cisco:vars]
-#ansible_user=admin
-#ansible_password=Cisco@123
-#ansible_network_os=ios
-#ansible_connection=network_cli
+[routers:children]
+cisco
 
-[site_1]
+[cisco]
+rtr1 ansible_host=35.170.69.143 private_ip=172.16.78.240
+rtr2 ansible_host=34.236.238.2 private_ip=172.18.26.118
+rtr4 ansible_host=3.235.121.134 private_ip=172.18.66.119
+rtr3 ansible_host=3.227.247.96 private_ip=172.16.37.65
+
+[cisco:vars]
+ansible_network_os=ios
+ansible_connection=network_cli
+
+
+[dc1]
 rtr1
+rtr3
 
-[site2]
+[dc2]
 rtr2
+rtr4
+
