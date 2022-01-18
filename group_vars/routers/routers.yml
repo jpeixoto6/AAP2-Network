@@ -1,6 +1,5 @@
 ---
 
-ansible_user: admin
-ansible_password: "{{ vault_ansible_password }}"
+ansible_user: ec2-user
 ansible_network_os: ios
 ansible_connection: network_cli
