@@ -15,7 +15,7 @@
         register: all_facts
 
       - debug:
-          msg: "{{hostvars['rtr1']['ansible_net_interfaces']['GigabitEthernet0']['ipv4'][0]['address']  }}"
+          msg: "{{hostvars['rtr1']['ansible_net_interfaces']['GigabitEthernet1']['ipv4'][0]['address']  }}"
 
       - name: create HTML report
         template:

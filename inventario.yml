@@ -7,7 +7,11 @@
     - name: gather router facts
       ios_facts:
 
-    - name: Write facts to disk using a template
+    - name: debug
+      debug:
+        var: groups
+
+    - name: Write facts to disk using a templates
       copy:
         content:  
           "{{ lookup('template', 'template-inventario.j2') }}"
